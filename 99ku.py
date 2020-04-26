@@ -20,4 +20,4 @@ for a in range(len(xfpall)):
         regex= re.compile('dna.*?]')
         url=regex.findall(xpdata)
         webbrowser.open("xfplay://"+url[0])
-        time.sleep(5)
+        time.sleep(2)
