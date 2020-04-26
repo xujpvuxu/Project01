@@ -4,6 +4,7 @@ import bs4
 import webbrowser
 import time
 
+print("網址範例:http://www.99kubo.tv/vod-read-id-xxxxx.html")
 url=input("輸入網址:")
 limit=int(input("輸入開始下載的集數:"))
 data=urldata.urldatau(url)
