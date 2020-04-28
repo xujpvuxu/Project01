@@ -1,29 +1,29 @@
-def urldatau(url):
-    import urllib.request as req
+import urllib.request as req
+import bs4
 
-    request = req.Request(url,headers={
-    "User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36"
-    })
 
-    with req.urlopen(request) as response:
-        data = response.read().decode("utf-8")
+class crawler():
+    def urldatau(self, url):
+        request = req.Request(url, headers={
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36"
+        })
 
-    import bs4
-    root = bs4.BeautifulSoup(data,"html.parser")
+        with req.urlopen(request) as response:
+            data = response.read().decode("utf-8")
 
-    return root
+        root = bs4.BeautifulSoup(data, "html.parser")
 
-def urldatab(url):
-    import urllib.request as req
+        return root
 
-    request = req.Request(url,headers={
-    "User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36"
-    })
+    def urldatab(self, url):
+        request = req.Request(url, headers={
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36"
+        })
 
-    with req.urlopen(request) as response:
-        data = response.read().decode("BIG5")
+        with req.urlopen(request) as response:
+            data = response.read().decode("BIG5")
 
-    import bs4
-    root = bs4.BeautifulSoup(data,"html.parser")
+        import bs4
+        root = bs4.BeautifulSoup(data, "html.parser")
 
-    return root
+        return root
