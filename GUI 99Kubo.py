@@ -90,23 +90,35 @@ class Ui_MainWindow(object):
 
     def into(self,MainWindow):
         url=self.tburl.text()
-        limit=int(self.tbnum.text())
+        
         data=urldata.urldatau(url)
 
         xfpall = data.find_all('a', {'href': re.compile('xfplay.html')})
+        if self.tbnum.text() == "":
+            urlsec="https://www.99kubo.tv" + xfpall[len(xfpall)-1]['href']
 
-        for a in range(len(xfpall)):
-            if a >= limit-1: 
+            datasec=urldata.urldatau(urlsec)
 
-                urlsec="https://www.99kubo.tv" + xfpall[a]['href']
-                
-                datasec=urldata.urldatau(urlsec)
+            xpdata = datasec.find(text=re.compile('dna'))
+            regex= re.compile('dna.*?]')
+            url=regex.findall(xpdata)
+            webbrowser.open("xfplay://"+url[0])
+        else:
 
-                xpdata = datasec.find(text=re.compile('dna'))
-                regex= re.compile('dna.*?]')
-                url=regex.findall(xpdata)
-                webbrowser.open("xfplay://"+url[0])
-                time.sleep(2)
+            limit=int(self.tbnum.text())
+            
+            for a in range(len(xfpall)):
+                if a >= limit-1:                 
+
+                    urlsec="https://www.99kubo.tv" + xfpall[a]['href']
+                    
+                    datasec=urldata.urldatau(urlsec)
+
+                    xpdata = datasec.find(text=re.compile('dna'))
+                    regex= re.compile('dna.*?]')
+                    url=regex.findall(xpdata)
+                    webbrowser.open("xfplay://"+url[0])
+                    time.sleep(2)
 
         
 
