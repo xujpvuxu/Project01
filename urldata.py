@@ -1,9 +1,7 @@
 import urllib.request as req
 import bs4
 
-
-
-def urldatau(self, url):
+def urldatau(url):
     request = req.Request(url, headers={
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36"
     })
@@ -15,7 +13,7 @@ def urldatau(self, url):
 
     return root
 
-def urldatab(self, url):
+def urldatab(url):
     request = req.Request(url, headers={
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36"
     })

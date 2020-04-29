@@ -18,7 +18,6 @@ os.environ['QT_QPA_PLATFORM_PLUGIN_PATH'] = plugin_path
 
 import urldata
 import re
-import bs4
 import webbrowser
 import time
 
@@ -97,9 +96,9 @@ class Ui_MainWindow(object):
 
     def into(self,MainWindow):
         url=self.tburl.text()
-        
+        print(url)
         data=urldata.urldatau(url)
-
+        print(data)
         xfpall = data.find_all('a', {'href': re.compile('xfplay.html')})
 
         if self.tbnum.text() == "":
