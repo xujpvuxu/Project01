@@ -13,5 +13,5 @@ reg = re.compile('".*?"')
 url=reg.findall(url[0])
 
 stru=str(url[0]).replace('"','')
-urllib.request.urlretrieve(stru,"1.mp4")
+urllib.request.urlretrieve(stru,"./FacebookVidwo/FBVideo.mp4")
 
