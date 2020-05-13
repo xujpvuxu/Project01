@@ -7,8 +7,15 @@
 # WARNING! All changes made in this file will be lost!
 
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PySide2 import QtCore, QtGui, QtWidgets
 import sys
+import PySide2
+import os
+
+dirname = os.path.dirname(PySide2.__file__)
+plugin_path = os.path.join(dirname, 'plugins', 'platforms')
+os.environ['QT_QPA_PLATFORM_PLUGIN_PATH'] = plugin_path
+
 import urldata
 import re
 import bs4
@@ -48,13 +55,22 @@ class Ui_MainWindow(object):
         self.label_2.setObjectName("label_2")
 
         self.btrun = QtWidgets.QPushButton(self.centralwidget)
-        self.btrun.setGeometry(QtCore.QRect(450, 30, 70, 70))
+        self.btrun.setGeometry(QtCore.QRect(450, 10, 90, 40))
         font = QtGui.QFont()
         font.setFamily("標楷體")
         font.setPointSize(12)
         self.btrun.setFont(font)
         self.btrun.setObjectName("btrun")
-        self.btrun.clicked.connect(self.into)
+        self.btrun.clicked.connect(self.intoXF)
+
+        self.btrun2 = QtWidgets.QPushButton(self.centralwidget)
+        self.btrun2.setGeometry(QtCore.QRect(450, 60, 90, 40))
+        font = QtGui.QFont()
+        font.setFamily("標楷體")
+        font.setPointSize(12)
+        self.btrun2.setFont(font)
+        self.btrun2.setObjectName("btrun2")
+        self.btrun2.clicked.connect(self.intodown)
 
         self.label_3 = QtWidgets.QLabel(self.centralwidget)
         self.label_3.setGeometry(QtCore.QRect(80, 0, 380, 21))
@@ -85,14 +101,15 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.label.setText(_translate("MainWindow", "網址:"))
         self.label_2.setText(_translate("MainWindow", "開始的集數:"))
-        self.btrun.setText(_translate("MainWindow", "下載"))
+        self.btrun.setText(_translate("MainWindow", "XF下載"))
+        self.btrun2.setText(_translate("MainWindow", "下載"))
         self.label_3.setText(_translate("MainWindow", "範例 : http://www.99kubo.tv/vod-read-id-XXXXX.html"))
 
-    def into(self,MainWindow):
+    def intoXF(self,MainWindow):
         url=self.tburl.text()
-        print(url)
+        
         data=urldata.urldatau(url)
-        print(data)
+
         xfpall = data.find_all('a', {'href': re.compile('xfplay.html')})
 
         if self.tbnum.text() == "":
@@ -120,6 +137,26 @@ class Ui_MainWindow(object):
                     url=regex.findall(xpdata)
                     webbrowser.open("xfplay://"+url[0])
                     time.sleep(2)
+
+
+    def intodown(self,MainWindow):
+        url=self.tburl.text()
+        limit=int(self.tbnum.text())
+        data=urldata.urldatau(url)
+   
+        fdurl=data.find('a',{'href': re.compile('download.php')})
+        
+        url="http://www.99kubo.tv"+fdurl['href']
+
+        data=urldata.urldatau(url)
+        du = data.select('div.media a')
+        if self.tbnum.text == "":
+            limit =len(du)
+
+        for a in range(len(du)):
+            if a>= int(limit)-1:
+                webbrowser.open(du[a]['href'])
+                time.sleep(2)
 
         
 
